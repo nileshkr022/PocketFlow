@@ -64,70 +64,58 @@ const App = () => {
   };
 
   const minimizedTransactions = minimizeCashFlow(transactions);
-  const currentDate = new Date().toLocaleDateString();
 
   const exportPDF = () => {
     const doc = new jsPDF();
-
     doc.setFontSize(18);
-    doc.setFont("helvetica", "bold");
     doc.text("PocketFlow - Cash Flow Minimizer (by Nilesh Kumar)", 20, 20);
+    doc.setFontSize(12);
+    doc.text("Repayment Summary", 20, 30);
 
-    doc.setFontSize(11);
-    doc.setFont("helvetica", "normal");
-    doc.text(`Date: ${currentDate}`, 20, 28);
-
-    doc.setFontSize(13);
-    doc.setTextColor(80, 80, 80);
-    doc.text("Repayment Summary", 20, 36);
-
-    // Unoptimized Transactions Title
-    doc.setFontSize(14);
-    doc.setTextColor(0, 0, 0);
-    doc.text("Unoptimized Transactions", 20, 46);
     autoTable(doc, {
-      startY: 50,
+      startY: 40,
       head: [["From", "To", "Amount"]],
       body: transactions.map((t) => [t.from, t.to, `₹${t.amount}`]),
       theme: "striped",
       headStyles: { fillColor: [52, 152, 219] },
+      margin: { bottom: 10 },
+      didDrawPage: () => doc.text("Unoptimized Transactions", 20, 36),
     });
 
-    const nextY = doc.lastAutoTable.finalY + 10;
-    doc.setFontSize(14);
-    doc.text("Optimized Settlements", 20, nextY);
     autoTable(doc, {
-      startY: nextY + 4,
-      head: [["From", "To", "Amount"]],
-      body: minimizedTransactions.map((t) => [t.from, t.to, `₹${t.amount}`]),
+      startY: doc.lastAutoTable.finalY + 10,
+      head: [["To", "From", "Amount"]],
+      body: minimizedTransactions.map((t) => [t.to, t.from, `₹${t.amount}`]),
       theme: "grid",
       headStyles: { fillColor: [46, 204, 113] },
+      didDrawPage: () => doc.text("Optimized Settlements", 20, doc.lastAutoTable.finalY + 6),
     });
 
     doc.save("pocketflow.pdf");
   };
 
   const csvData = [
-    ["PocketFlow - Cash Flow Minimizer (by Nilesh Kumar)"],
-    [`Date: ${currentDate}`],
-    ["Repayment Summary"],
-    [],
-    ["Unoptimized Transactions"],
-    ["From", "To", "Amount"],
-    ...transactions.map((t) => [t.from, t.to, `₹${t.amount}`]),
-    [],
-    ["Optimized Settlements"],
-    ["From", "To", "Amount"],
-    ...minimizedTransactions.map((t) => [t.from, t.to, `₹${t.amount}`]),
+    { Section: "Unoptimized Transactions" },
+    ...transactions.map((t) => ({
+      From: t.from,
+      To: t.to,
+      Amount: `₹${t.amount}`,
+    })),
+    {},
+    { Section: "Optimized Settlements" },
+    ...minimizedTransactions.map((t) => ({
+      From: t.to,
+      To: t.from,
+      Amount: `₹${t.amount}`,
+    })),
   ];
 
   return (
     <div className="min-h-screen p-8 bg-gray-100 text-gray-800">
-      <h1 className="text-3xl font-bold mb-1">
-      💸 PocketFlow - Cash Flow Minimizer <span className="text-sm font-normal">(by Nilesh Kumar)</span>
-      </h1>
+      <h1 className="text-3xl font-bold mb-1">PocketFlow - Cash Flow Minimizer <span className="text-sm font-normal">(by Nilesh Kumar)</span></h1>
+      <p className="text-sm text-gray-600 mb-4">Easily minimize debt settlement between multiple parties</p>
 
-      <div className="grid grid-cols-3 gap-4 mb-4 mt-4">
+      <div className="grid grid-cols-3 gap-4 mb-4">
         <input
           className="p-2 border rounded"
           placeholder="From"
@@ -183,7 +171,7 @@ const App = () => {
           {minimizedTransactions.length ? (
             minimizedTransactions.map((t, index) => (
               <li key={index}>
-                {t.from} ➡️ {t.to}: <strong>₹{t.amount}</strong>
+                {t.to} ⬅️ {t.from}: <strong>₹{t.amount}</strong>
               </li>
             ))
           ) : (
