@@ -119,11 +119,7 @@ export function minimiseCashFlow(transactions) {
 
   var positive = []; // heap of credit holders
 	
-	/* positive = [
-		{100:"parth"}, 
-		{200: "abhinav"},
-		{300: "xyz"}
-	] */
+	
 	
   var negative = []; // heap of debit holders
 
