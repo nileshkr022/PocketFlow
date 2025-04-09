@@ -25,35 +25,52 @@ const App = () => {
 
   const minimizeCashFlow = (transactions) => {
     const balanceMap = {};
+  
+    // 1. Calculate net balance for each person
     transactions.forEach(({ from, to, amount }) => {
-      balanceMap[from] = (balanceMap[from] || 0) - amount;
-      balanceMap[to] = (balanceMap[to] || 0) + amount;
+      balanceMap[from] = (balanceMap[from] || 0) - amount; // giver loses money
+      balanceMap[to] = (balanceMap[to] || 0) + amount;     // receiver gains money
     });
-
-    const debtors = [], creditors = [];
-    for (let person in balanceMap) {
+  
+    // 2. Create arrays of people who owe (debtors) and who are owed (creditors)
+    const debtors = [];
+    const creditors = [];
+  
+    for (const person in balanceMap) {
       const balance = balanceMap[person];
-      if (balance < 0) debtors.push({ person, amount: -balance });
-      else if (balance > 0) creditors.push({ person, amount });
+      if (balance < 0) {
+        debtors.push({ person, amount: -balance }); // they owe money
+      } else if (balance > 0) {
+        creditors.push({ person, amount: balance }); // they are owed money
+      }
     }
-
+  
+    // 3. Settle balances greedily
     const settlements = [];
-    while (debtors.length && creditors.length) {
-      let debtor = debtors[0];
-      let creditor = creditors[0];
-      let minAmount = Math.min(debtor.amount, creditor.amount);
-
-      settlements.push({ from: debtor.person, to: creditor.person, amount: minAmount });
-
-      debtor.amount -= minAmount;
-      creditor.amount -= minAmount;
-
-      if (debtor.amount === 0) debtors.shift();
-      if (creditor.amount === 0) creditors.shift();
+  
+    let i = 0, j = 0;
+    while (i < debtors.length && j < creditors.length) {
+      const debtor = debtors[i];
+      const creditor = creditors[j];
+  
+      const settledAmount = Math.min(debtor.amount, creditor.amount);
+  
+      settlements.push({
+        from: debtor.person,   // debtor pays
+        to: creditor.person,   // creditor receives
+        amount: settledAmount,
+      });
+  
+      debtor.amount -= settledAmount;
+      creditor.amount -= settledAmount;
+  
+      if (debtor.amount === 0) i++;
+      if (creditor.amount === 0) j++;
     }
-
+  
     return settlements;
   };
+  
 
   const minimizedTransactions = minimizeCashFlow(transactions);
 
