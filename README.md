@@ -1,70 +1,112 @@
-# Getting Started with Create React App
+# 💸 PocketFlow - Cash Flow Minimizer (by Nilesh Kumar)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**PocketFlow** is a React-based tool that simplifies debt settlement among groups. It calculates optimized repayments that reduce the number of transactions needed to settle all balances.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🔧 Features
 
-### `npm start`
+- ✅ Add unoptimized transactions (who paid whom and how much)
+- 🔁 Calculates optimized settlements with minimal transactions
+- 📄 Export both unoptimized and optimized transactions to **PDF**
+- 📁 Export both tables to **CSV**
+- 🧼 Clean UI with TailwindCSS
+- 🔄 Reset transactions instantly
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 📁 Project Structure
 
-### `npm test`
+```bash
+PocketFlow/
+├── public/
+│   └── index.html              # Main HTML template
+├── src/
+│   ├── App.js                  # Core logic + UI components
+│   ├── index.js                # React DOM entry point
+│   └── styles.css              # Optional Tailwind or global styles
+├── package.json                # Project dependencies and scripts
+├── tailwind.config.js          # Tailwind configuration (if used)
+└── README.md                   # This documentation
+🚀 Getting Started
+1. Clone the Repository
+bash
+Copy
+Edit
+git clone https://github.com/yourusername/pocketflow.git
+cd pocketflow
+2. Install Dependencies
+bash
+Copy
+Edit
+npm install
+3. Run the App
+bash
+Copy
+Edit
+npm start
+📘 How to Use
+➕ Add Transactions
+Input who paid whom and how much.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Example:
 
-### `npm run build`
+Alice paid Bob ₹1000
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Bob paid Charlie ₹2000
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+⚡ Optimized Settlements
+The app calculates a minimal set of repayments.
+For example:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Alice ➡️ Charlie ₹1000
 
-### `npm run eject`
+Bob ➡️ Charlie ₹1000
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+📤 Export
+Export PDF includes:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Title: PocketFlow - Cash Flow Minimizer (by Nilesh Kumar)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Subtitle: Repayment Summary
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Sections: Unoptimized and Optimized Transactions with headers + timestamp
 
-## Learn More
+Export CSV includes:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Both tables with headers in a single file
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+🔄 Reset
+Click the Reset button to clear all transactions and start over.
 
-### Code Splitting
+🧪 Sample Use Case
+Trip with Friends:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+A pays ₹3000
 
-### Analyzing the Bundle Size
+B pays ₹1500
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+C pays ₹0
 
-### Making a Progressive Web App
+Split equally among 3
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Without PocketFlow: Manual and confusing math
+With PocketFlow:
 
-### Advanced Configuration
+C ➡️ A ₹1500
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+C ➡️ B ₹500
 
-### Deployment
+Done in just 2 transactions!
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+📦 Dependencies
+React
 
-### `npm run build` fails to minify
+TailwindCSS
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+jsPDF + jspdf-autotable for PDF export
+
+react-csv for CSV export
+
+🙌 Author
+Made with ❤️ by Nilesh Kumar
