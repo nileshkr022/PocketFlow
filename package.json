@@ -1,14 +1,24 @@
 {
-  "name": "cash-flow-minimiser",
+  "name": "pocketflow",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^4.12.3",
-    "d3": "^5.5.0",
-    "react": "^16.14.0",
-    "react-d3-graph": "^2.6.0",
-    "react-dom": "^16.14.0",
-    "react-scripts": "^3.0.1"
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^13.5.0",
+    "file-saver": "^2.0.5",
+    "heap-js": "^2.6.0",
+    "jspdf": "^3.0.1",
+    "jspdf-autotable": "^5.0.2",
+    "papaparse": "^5.5.2",
+    "react": "^19.1.0",
+    "react-csv": "^2.2.2",
+    "react-dom": "^19.1.0",
+    "react-scripts": "5.0.1",
+    "reactflow": "^11.11.4",
+    "recharts": "^2.15.2",
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -33,5 +43,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^3.4.1"
   }
 }
