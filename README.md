@@ -1,33 +1,33 @@
 # 💸 PocketFlow - Cash Flow Minimizer (by Nilesh Kumar)
 
-**PocketFlow** is a React-based tool that simplifies debt settlement among groups. It calculates optimized repayments that reduce the number of transactions needed to settle all balances.
+**PocketFlow** is a React-based tool to simplify and optimize cash flow settlements among groups of people. It minimizes the number of transactions required to settle debts.
 
 ---
 
-## 🔧 Features
+## ✨ Features
 
-- ✅ Add unoptimized transactions (who paid whom and how much)
-- 🔁 Calculates optimized settlements with minimal transactions
-- 📄 Export both unoptimized and optimized transactions to **PDF**
-- 📁 Export both tables to **CSV**
-- 🧼 Clean UI with TailwindCSS
-- 🔄 Reset transactions instantly
+- Add transactions (who paid whom and how much)
+- Automatically calculate optimized settlements
+- Export both Unoptimized & Optimized tables to PDF
+- Export both tables to CSV
+- Reset all data with one click
+- Clean UI powered by TailwindCSS
 
 ---
 
-## 📁 Project Structure
+## 🗂️ Project Structure
 
 ```bash
 PocketFlow/
 ├── public/
-│   └── index.html              # Main HTML template
+│   └── index.html               # HTML template
 ├── src/
-│   ├── App.js                  # Core logic + UI components
-│   ├── index.js                # React DOM entry point
-│   └── styles.css              # Optional Tailwind or global styles
-├── package.json                # Project dependencies and scripts
-├── tailwind.config.js          # Tailwind configuration (if used)
-└── README.md                   # This documentation
+│   ├── App.js                   # Core logic and components
+│   ├── index.js                 # Entry point
+│   └── styles.css               # Optional CSS or Tailwind
+├── package.json                 # NPM dependencies
+├── tailwind.config.js           # Tailwind config (if used)
+└── README.md                    # Project documentation
 🚀 Getting Started
 1. Clone the Repository
 bash
@@ -45,9 +45,9 @@ bash
 Copy
 Edit
 npm start
-📘 How to Use
+🧾 How to Use
 ➕ Add Transactions
-Input who paid whom and how much.
+Enter names and amount for who paid whom.
 
 Example:
 
@@ -56,57 +56,60 @@ Alice paid Bob ₹1000
 Bob paid Charlie ₹2000
 
 ⚡ Optimized Settlements
-The app calculates a minimal set of repayments.
-For example:
+Calculates minimum number of repayments to settle all balances.
+
+Example Output:
 
 Alice ➡️ Charlie ₹1000
 
 Bob ➡️ Charlie ₹1000
 
-📤 Export
-Export PDF includes:
-
-Title: PocketFlow - Cash Flow Minimizer (by Nilesh Kumar)
+📄 Export to PDF
+Includes title: PocketFlow - Cash Flow Minimizer (by Nilesh Kumar)
 
 Subtitle: Repayment Summary
 
-Sections: Unoptimized and Optimized Transactions with headers + timestamp
+Shows both Unoptimized and Optimized tables
 
-Export CSV includes:
+Timestamp included
 
-Both tables with headers in a single file
+📁 Export to CSV
+Single CSV file containing both:
+
+Unoptimized Transactions
+
+Optimized Settlements
 
 🔄 Reset
-Click the Reset button to clear all transactions and start over.
+One-click to clear all entered data and start over.
 
-🧪 Sample Use Case
-Trip with Friends:
+💼 Sample Use Case
+Trip Split Example:
 
-A pays ₹3000
+A paid ₹3000
 
-B pays ₹1500
+B paid ₹1500
 
-C pays ₹0
+C paid ₹0
 
-Split equally among 3
+Equal share: ₹1500 each
 
-Without PocketFlow: Manual and confusing math
-With PocketFlow:
+Optimized Result:
 
 C ➡️ A ₹1500
 
 C ➡️ B ₹500
 
-Done in just 2 transactions!
+Only two transactions settle the group expense.
 
-📦 Dependencies
+🛠️ Tech Stack
 React
 
 TailwindCSS
 
-jsPDF + jspdf-autotable for PDF export
+jsPDF + jsPDF-autotable
 
-react-csv for CSV export
+react-csv
 
-🙌 Author
-Made with ❤️ by Nilesh Kumar
+👨‍💻 Author
+Crafted with care by Nilesh Kumar
