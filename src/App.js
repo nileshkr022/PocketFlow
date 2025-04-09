@@ -160,7 +160,7 @@ const App = () => {
           {minimizedTransactions.length ? (
             minimizedTransactions.map((t, index) => (
               <li key={index}>
-                {t.from} ➡️ {t.to}: <strong>₹{t.amount}</strong>
+                {t.to} ➡️ {t.from}: <strong>₹{t.amount}</strong>
               </li>
             ))
           ) : (
