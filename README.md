@@ -65,23 +65,23 @@ Alice ➡️ Charlie ₹1000
 Bob ➡️ Charlie ₹1000
 
 📄 Export to PDF
-Includes title: PocketFlow - Cash Flow Minimizer (by Nilesh Kumar)
+Title: PocketFlow - Cash Flow Minimizer (by Nilesh Kumar)
 
 Subtitle: Repayment Summary
 
-Shows both Unoptimized and Optimized tables
+Includes both Unoptimized and Optimized tables
 
 Timestamp included
 
 📁 Export to CSV
-Single CSV file containing both:
+Single CSV file with two sections:
 
 Unoptimized Transactions
 
 Optimized Settlements
 
 🔄 Reset
-One-click to clear all entered data and start over.
+Click Reset to clear all transactions and start fresh.
 
 💼 Sample Use Case
 Trip Split Example:
