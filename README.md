@@ -29,7 +29,7 @@ PocketFlow/
 ├── tailwind.config.js          # Tailwind configuration (if used)
 └── README.md                   # This documentation
 
----
+```bash
 🚀 Getting Started
 1. Clone the Repository
 bash
