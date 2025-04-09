@@ -1,114 +1,86 @@
-# 💸 PocketFlow - Cash Flow Minimizer (by Nilesh Kumar)
+# 📘 PocketFlow - Cash Flow Minimizer
 
-**PocketFlow** is a React-based tool that simplifies debt settlement among groups. It calculates optimized repayments that reduce the number of transactions needed to settle all balances.
-
----
-
-## 🔧 Features
-
-- ✅ Add unoptimized transactions (who paid whom and how much)
-- 🔁 Calculates optimized settlements with minimal transactions
-- 📄 Export both unoptimized and optimized transactions to **PDF**
-- 📁 Export both tables to **CSV**
-- 🧼 Clean UI with TailwindCSS
-- 🔄 Reset transactions instantly
+**PocketFlow** is a minimal and effective React-based tool that helps groups of people settle shared expenses with the least number of transactions. Ideal for roommates, trips, or any group expense scenario.
 
 ---
 
-## 📁 Project Structure
+## 🌟 Features
 
-```bash
-PocketFlow/
+- ✍️ Add transactions between individuals
+- 📉 Minimize cash flow with optimized settlements
+- 📄 Export settlements to **PDF** with timestamp and structured tables
+- 📁 Export transactions to **CSV** for Excel or Sheets use
+- 🔄 Reset data anytime to start fresh
+
+---
+
+## 📂 Folder Structure
+
+```
+pocketflow/
 ├── public/
-│   └── index.html              # Main HTML template
+│   └── index.html
 ├── src/
-│   ├── App.js                  # Core logic + UI components
-│   ├── index.js                # React DOM entry point
-│   └── styles.css              # Optional Tailwind or global styles
-├── package.json                # Project dependencies and scripts
-├── tailwind.config.js          # Tailwind configuration (if used)
-└── README.md                   # This documentation
+│   ├── App.js             # Main React component with full logic & UI
+│   ├── index.js           # React DOM rendering
+│   └── styles.css         # (Optional) Tailwind CSS
+├── package.json           # Dependencies and project scripts
+└── README.md              # Project overview and usage
+```
 
+---
+
+## 🚀 Getting Started
+
+### 1. Clone the Repository
 ```bash
-🚀 Getting Started
-1. Clone the Repository
-bash
-Copy
-Edit
 git clone https://github.com/yourusername/pocketflow.git
 cd pocketflow
-2. Install Dependencies
-bash
-Copy
-Edit
+```
+
+### 2. Install Dependencies
+```bash
 npm install
-3. Run the App
-bash
-Copy
-Edit
+```
+
+### 3. Run the Application
+```bash
 npm start
-📘 How to Use
-➕ Add Transactions
-Input who paid whom and how much.
+```
+Then open [http://localhost:3000](http://localhost:3000) in your browser.
 
-Example:
+---
 
-Alice paid Bob ₹1000
+## 📄 PDF & CSV Export Details
 
-Bob paid Charlie ₹2000
+### PDF Includes:
+- **Title:** PocketFlow - Cash Flow Minimizer *(by Nilesh Kumar)*
+- **Subtitle:** Repayment Summary
+- **Two Tables:**
+  - Unoptimized Transactions
+  - Optimized Settlements
+- **Timestamp** at time of export
 
-⚡ Optimized Settlements
-The app calculates a minimal set of repayments.
-For example:
+### CSV Includes:
+- Two sections:
+  - Unoptimized Transactions
+  - Optimized Settlements
+- Clean headers and currency formatting
 
-Alice ➡️ Charlie ₹1000
+---
 
-Bob ➡️ Charlie ₹1000
+## 📌 Example Use Case
+**You went on a trip with 3 friends.**
+- p1 paid ₹1000 to p2
+- p2 paid ₹2000 to p3
 
-📤 Export
-Export PDF includes:
+Instead of multiple payments, PocketFlow will tell you:
+- p1 ➡️ p3: ₹1000
+- p2 ➡️ p3: ₹1000
 
-Title: PocketFlow - Cash Flow Minimizer (by Nilesh Kumar)
+This way, everyone settles up with minimal transactions. ⚖️
 
-Subtitle: Repayment Summary
+---
 
-Sections: Unoptimized and Optimized Transactions with headers + timestamp
-
-Export CSV includes:
-
-Both tables with headers in a single file
-
-🔄 Reset
-Click the Reset button to clear all transactions and start over.
-
-🧪 Sample Use Case
-Trip with Friends:
-
-A pays ₹3000
-
-B pays ₹1500
-
-C pays ₹0
-
-Split equally among 3
-
-Without PocketFlow: Manual and confusing math
-With PocketFlow:
-
-C ➡️ A ₹1500
-
-C ➡️ B ₹500
-
-Done in just 2 transactions!
-
-📦 Dependencies
-React
-
-TailwindCSS
-
-jsPDF + jspdf-autotable for PDF export
-
-react-csv for CSV export
-
-🙌 Author
-Made with care by Nilesh Kumar
+## 👨‍💻 Author
+Built with care by **Nilesh Kumar**
