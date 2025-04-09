@@ -24,28 +24,29 @@ const App = () => {
   };
 
   const minimizeCashFlow = (transactions) => {
-    const balanceMap = {};
+    const netBalance = {};
 
     transactions.forEach(({ from, to, amount }) => {
-      balanceMap[from] = (balanceMap[from] || 0) - amount;
-      balanceMap[to] = (balanceMap[to] || 0) + amount;
+      netBalance[from] = (netBalance[from] || 0) - amount;
+      netBalance[to] = (netBalance[to] || 0) + amount;
     });
 
-    const creditHeap = [], debitHeap = [];
-    for (let person in balanceMap) {
-      const bal = balanceMap[person];
-      if (bal > 0) creditHeap.push({ person, amount: bal });
-      else if (bal < 0) debitHeap.push({ person, amount: -bal });
+    const creditors = [], debtors = [];
+
+    for (let person in netBalance) {
+      const bal = netBalance[person];
+      if (bal > 0) creditors.push({ person, amount: bal });
+      else if (bal < 0) debtors.push({ person, amount: -bal });
     }
 
-    creditHeap.sort((a, b) => b.amount - a.amount);
-    debitHeap.sort((a, b) => b.amount - a.amount);
+    creditors.sort((a, b) => b.amount - a.amount);
+    debtors.sort((a, b) => b.amount - a.amount);
 
     const result = [];
 
-    while (creditHeap.length && debitHeap.length) {
-      const creditor = creditHeap[0];
-      const debtor = debitHeap[0];
+    while (creditors.length && debtors.length) {
+      const creditor = creditors[0];
+      const debtor = debtors[0];
       const minAmount = Math.min(creditor.amount, debtor.amount);
 
       result.push({ from: debtor.person, to: creditor.person, amount: minAmount });
@@ -53,11 +54,11 @@ const App = () => {
       creditor.amount -= minAmount;
       debtor.amount -= minAmount;
 
-      if (creditor.amount === 0) creditHeap.shift();
-      else creditHeap.sort((a, b) => b.amount - a.amount);
+      if (creditor.amount === 0) creditors.shift();
+      else creditors.sort((a, b) => b.amount - a.amount);
 
-      if (debtor.amount === 0) debitHeap.shift();
-      else debitHeap.sort((a, b) => b.amount - a.amount);
+      if (debtor.amount === 0) debtors.shift();
+      else debtors.sort((a, b) => b.amount - a.amount);
     }
 
     return result;
@@ -67,53 +68,53 @@ const App = () => {
 
   const exportPDF = () => {
     const doc = new jsPDF();
-    doc.setFontSize(18);
+    doc.setFontSize(16);
     doc.text("PocketFlow - Cash Flow Minimizer (by Nilesh Kumar)", 20, 20);
     doc.setFontSize(12);
     doc.text("Repayment Summary", 20, 30);
 
     autoTable(doc, {
       startY: 40,
+      head: [["Unoptimized Transactions"]],
+      body: [],
+    });
+
+    autoTable(doc, {
+      startY: doc.lastAutoTable.finalY + 2,
       head: [["From", "To", "Amount"]],
       body: transactions.map((t) => [t.from, t.to, `₹${t.amount}`]),
-      theme: "striped",
-      headStyles: { fillColor: [52, 152, 219] },
-      margin: { bottom: 10 },
-      didDrawPage: () => doc.text("Unoptimized Transactions", 20, 36),
     });
 
     autoTable(doc, {
       startY: doc.lastAutoTable.finalY + 10,
-      head: [["To", "From", "Amount"]],
-      body: minimizedTransactions.map((t) => [t.to, t.from, `₹${t.amount}`]),
-      theme: "grid",
-      headStyles: { fillColor: [46, 204, 113] },
-      didDrawPage: () => doc.text("Optimized Settlements", 20, doc.lastAutoTable.finalY + 6),
+      head: [["Optimized Settlements"]],
+      body: [],
     });
+
+    autoTable(doc, {
+      startY: doc.lastAutoTable.finalY + 2,
+      head: [["From", "To", "Amount"]],
+      body: minimizedTransactions.map((t) => [t.from, t.to, `₹${t.amount}`]),
+    });
+
+    const timestamp = new Date().toLocaleString();
+    doc.text(`Generated on: ${timestamp}`, 20, doc.lastAutoTable.finalY + 10);
 
     doc.save("pocketflow.pdf");
   };
 
   const csvData = [
     { Section: "Unoptimized Transactions" },
-    ...transactions.map((t) => ({
-      From: t.from,
-      To: t.to,
-      Amount: `₹${t.amount}`,
-    })),
+    ...transactions.map((t) => ({ From: t.from, To: t.to, Amount: `₹${t.amount}` })),
     {},
     { Section: "Optimized Settlements" },
-    ...minimizedTransactions.map((t) => ({
-      From: t.to,
-      To: t.from,
-      Amount: `₹${t.amount}`,
-    })),
+    ...minimizedTransactions.map((t) => ({ From: t.from, To: t.to, Amount: `₹${t.amount}` })),
   ];
 
   return (
     <div className="min-h-screen p-8 bg-gray-100 text-gray-800">
-      <h1 className="text-3xl font-bold mb-1">PocketFlow - Cash Flow Minimizer <span className="text-sm font-normal">(by Nilesh Kumar)</span></h1>
-      <p className="text-sm text-gray-600 mb-4">Easily minimize debt settlement between multiple parties</p>
+      <h1 className="text-3xl font-bold mb-1">PocketFlow - Cash Flow Minimizer</h1>
+      <p className="text-sm text-gray-600 mb-6">(by Nilesh Kumar)</p>
 
       <div className="grid grid-cols-3 gap-4 mb-4">
         <input
@@ -171,7 +172,7 @@ const App = () => {
           {minimizedTransactions.length ? (
             minimizedTransactions.map((t, index) => (
               <li key={index}>
-                {t.to} ⬅️ {t.from}: <strong>₹{t.amount}</strong>
+                {t.from} ➡️ {t.to}: <strong>₹{t.amount}</strong>
               </li>
             ))
           ) : (
