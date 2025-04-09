@@ -1,4 +1,4 @@
-# 💸 PocketFlow - Cash Flow Minimizer (by Nilesh Kumar)
+# 💸 PocketFlow - Cash Flow Minimizer
 
 **PocketFlow** is a React-based tool that simplifies debt settlement among groups. It calculates optimized repayments that reduce the number of transactions needed to settle all balances.
 
@@ -17,7 +17,7 @@
 
 ## 📁 Project Structure
 
-```bash
+
 PocketFlow/
 ├── public/
 │   └── index.html              # Main HTML template
@@ -30,20 +30,11 @@ PocketFlow/
 └── README.md                   # This documentation
 🚀 Getting Started
 1. Clone the Repository
-bash
-Copy
-Edit
 git clone https://github.com/yourusername/pocketflow.git
 cd pocketflow
 2. Install Dependencies
-bash
-Copy
-Edit
 npm install
 3. Run the App
-bash
-Copy
-Edit
 npm start
 📘 How to Use
 ➕ Add Transactions
