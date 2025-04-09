@@ -30,11 +30,20 @@ PocketFlow/
 └── README.md                   # This documentation
 🚀 Getting Started
 1. Clone the Repository
+bash
+Copy
+Edit
 git clone https://github.com/yourusername/pocketflow.git
 cd pocketflow
 2. Install Dependencies
+bash
+Copy
+Edit
 npm install
 3. Run the App
+bash
+Copy
+Edit
 npm start
 📘 How to Use
 ➕ Add Transactions
