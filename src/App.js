@@ -65,6 +65,17 @@ const App = () => {
 
   const minimizedTransactions = minimizeCashFlow(transactions);
 
+  const getFormattedDateTime = () => {
+    const now = new Date();
+    const yyyy = now.getFullYear();
+    const mm = String(now.getMonth() + 1).padStart(2, '0');
+    const dd = String(now.getDate()).padStart(2, '0');
+    const hh = String(now.getHours()).padStart(2, '0');
+    const min = String(now.getMinutes()).padStart(2, '0');
+    const ss = String(now.getSeconds()).padStart(2, '0');
+    return `${yyyy}${mm}${dd}_${hh}${min}${ss}`;
+  };
+
   const exportPDF = () => {
     const doc = new jsPDF();
     doc.setFontSize(16);
@@ -89,7 +100,7 @@ const App = () => {
     });
 
     doc.text(`Generated on: ${currentDate}`, 20, doc.lastAutoTable.finalY + 10);
-    doc.save("pocketflow.pdf");
+    doc.save(`pocketflow_${getFormattedDateTime()}.pdf`);
   };
 
   const csvData = [
@@ -102,8 +113,13 @@ const App = () => {
 
   return (
     <div className="min-h-screen p-8 bg-gray-100 text-gray-800">
-      <h1 className="text-3xl font-bold mb-1">PocketFlow - Cash Flow Minimizer <span className="text-sm font-normal">(by Nilesh Kumar)</span></h1>
-      <p className="text-sm text-gray-600 mb-4">Minimize net settlements across group transactions</p>
+      <h1 className="text-3xl font-bold mb-1">
+        PocketFlow - Cash Flow Minimizer{" "}
+        <span className="text-sm font-normal">(by Nilesh Kumar)</span>
+      </h1>
+      <p className="text-sm text-gray-600 mb-4">
+        Minimize net settlements across group transactions
+      </p>
 
       <div className="grid grid-cols-3 gap-4 mb-4">
         <input
@@ -126,6 +142,7 @@ const App = () => {
           onChange={(e) => setAmount(e.target.value)}
         />
       </div>
+
       <div className="flex gap-4 mb-6">
         <button
           className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
@@ -142,7 +159,9 @@ const App = () => {
       </div>
 
       <div className="mb-6">
-        <h2 className="text-xl font-semibold mb-2">Unoptimized Transactions:</h2>
+        <h2 className="text-xl font-semibold mb-2">
+          Unoptimized Transactions:
+        </h2>
         <ul className="bg-white p-4 rounded shadow mb-4">
           {transactions.length ? (
             transactions.map((t, index) => (
@@ -177,7 +196,7 @@ const App = () => {
           📄 Export PDF
         </button>
         <CSVLink
-          filename="pocketflow.csv"
+          filename={`pocketflow_${getFormattedDateTime()}.csv`}
           data={csvData}
           className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded"
         >
