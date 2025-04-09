@@ -24,24 +24,20 @@ const App = () => {
   };
 
   const minimizeCashFlow = (transactions) => {
-    const balanceMap = {};
+    const netBalance = {};
 
     transactions.forEach(({ from, to, amount }) => {
-      balanceMap[from] = (balanceMap[from] || 0) - amount;
-      balanceMap[to] = (balanceMap[to] || 0) + amount;
+      netBalance[from] = (netBalance[from] || 0) - amount;
+      netBalance[to] = (netBalance[to] || 0) + amount;
     });
 
     const debtors = [];
     const creditors = [];
 
-    for (const person in balanceMap) {
-      const balance = balanceMap[person];
-      if (balance < 0) {
-        debtors.push({ person, amount: -balance });
-      } else if (balance > 0) {
-        creditors.push({ person, amount: balance });
-      }
-    }
+    Object.entries(netBalance).forEach(([person, balance]) => {
+      if (balance < 0) debtors.push({ person, amount: -balance });
+      else if (balance > 0) creditors.push({ person, amount: balance });
+    });
 
     const settlements = [];
 
@@ -49,17 +45,16 @@ const App = () => {
     while (i < debtors.length && j < creditors.length) {
       const debtor = debtors[i];
       const creditor = creditors[j];
-
-      const settledAmount = Math.min(debtor.amount, creditor.amount);
+      const settleAmount = Math.min(debtor.amount, creditor.amount);
 
       settlements.push({
-        from: creditor.person, // Swapped here
-        to: debtor.person,
-        amount: settledAmount,
+        from: debtor.person,
+        to: creditor.person,
+        amount: settleAmount,
       });
 
-      debtor.amount -= settledAmount;
-      creditor.amount -= settledAmount;
+      debtor.amount -= settleAmount;
+      creditor.amount -= settleAmount;
 
       if (debtor.amount === 0) i++;
       if (creditor.amount === 0) j++;
